@@ -42,7 +42,7 @@ def de_inicio(self, ubucacion):
     # ========= función que gera los colores ========
     opciones_colores(self, self.contNavegadorColor)
     # ===============================================
-    generar_componetes_muestra(self, numeroDeMuestra)
+    generar_componetes_muestra(self)
 
     self.contPaletasColores = tk.Frame(self.contPadre, bg=coloresFondoGris)
     self.contPaletasColores.pack(side=RIGHT, fill=Y, padx=10)
@@ -57,9 +57,7 @@ def de_inicio(self, ubucacion):
     self.prueva.grid(column=0, row=4)
 
 
-def generar_componetes_muestra(self, numeroDeMuestra):
-    print(f"soy numero de muestra {numeroDeMuestra}")
-    def crear_tarjetas():
+def crear_tarjetas(self):
         for tarjeta in range(numeroDeMuestra):
             listNombreColores.append(colores_aleatorio())
 
@@ -67,29 +65,30 @@ def generar_componetes_muestra(self, numeroDeMuestra):
             self.tarjeta.config(background=listNombreColores[tarjeta])
             tarjetas.append(self.tarjeta)  # agregar las trajetas a la lista
 
-    def crear_nombre_colores():
+def crear_nombre_colores(self):
         for nombres in range(numeroDeMuestra):
             self.nombres = tk.Label(self.contMuestra, text=listNombreColores[nombres])
             self.nombres.config(font=self.fuenteNombreColores, bg=coloresFondoGris)
             lisNombres.append(self.nombres)
 
-    if len(tarjetas) == 0:
-        crear_tarjetas()
-    else:
-        for elmt in tarjetas:
-            tarjetas.remove(elmt)
-            print(f"nombres colores {tarjetas}")
-        crear_tarjetas()
+def generar_componetes_muestra(self):
 
-    if len(lisNombres) == 0:
-        crear_nombre_colores()
-    else:
-        for elmto in lisNombres:
-            lisNombres.remove(elmto)
-            print(f"nombres colores {lisNombres}")
-        crear_nombre_colores()
 
-    colocar_tarjetas()
+    if len(tarjetas) == 0 and len(lisNombres) == 0:
+        print(f"soy el numero de tarjetas {len(tarjetas)}")
+        crear_tarjetas(self)
+        crear_nombre_colores(self)
+        colocar_tarjetas()
+    else:
+        print(f"soy el numero de tarjetas {len(tarjetas)}")
+        tarjetas.clear()
+        lisNombres.clear()
+        crear_tarjetas(self)
+        crear_nombre_colores(self)
+        colocar_tarjetas()
+
+
+
 
 obtenerCatidad = object
 
@@ -115,11 +114,11 @@ def opciones_colores(self, contenedor):
         global numeroDeMuestra
         numeroDeMuestra = int(obtenerCatidad.get())
 
-        generar_componetes_muestra(self, numeroDeMuestra)
+        generar_componetes_muestra(self)
 
-        print(numeroDeMuestra)
-        for i in listNombreColores:
-            listNombreColores.remove(i)
+
+        #===== vaciar la lista de colores
+        listNombreColores.clear()
 
         ind = 0
         for elm in tarjetas:
