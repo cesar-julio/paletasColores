@@ -44,6 +44,61 @@ def de_inicio(self, ubucacion):
     # ===============================================
     generar_componetes_muestra(self)
 
+
+    #============ COLORES PERSONALIZADOS ==============
+    self.personalizarColor = tk.Frame(self.contPadre)
+    self.personalizarColor.config(bg=coloresFondoGris)
+    self.personalizarColor.pack(side=LEFT, fill=Y, padx= 10)
+
+    self.contPersonalizarColor = tk.Frame(self.personalizarColor)
+    self.contPersonalizarColor.pack(side=TOP)
+
+    self.verColor = tk.Canvas(self.contPersonalizarColor, width=100, height=100, bg="RED")
+    self.verColor.grid(column=0, row=0, pady=10)
+
+    def colocar_color(*args):
+        R = varRojo.get()
+        G = varVerde.get()
+        B = varAzul.get()
+        colorDeMuestra = "#%02x%02x%02x" % (R, G, B)
+        self.verColor.config(bg=colorDeMuestra)
+    def hexa_color():
+        color = self.insertarColor.get()
+        self.verColor.config(bg=color)
+
+
+    varRojo = IntVar()
+    self.controlRojo = tk.Scale(self.contPersonalizarColor, variable=varRojo, from_=0, to=255)
+    self.controlRojo.config(troughcolor="RED", orient=HORIZONTAL, length=200)
+    self.controlRojo.grid(column=0, row=1)
+    varRojo.trace("w", colocar_color)
+
+    varVerde = IntVar()
+    self.controlVerde = tk.Scale(self.contPersonalizarColor, variable=varVerde, from_=0, to=255)
+    self.controlVerde.config(troughcolor="GREEN", orient=HORIZONTAL, length=200)
+    self.controlVerde.grid(column=0, row=2)
+    varVerde.trace("w", colocar_color)
+
+    varAzul = IntVar()
+    self.controlAzul = tk.Scale(self.contPersonalizarColor, variable=varAzul, from_=0, to=255)
+    self.controlAzul.config(troughcolor="BLUE", orient=HORIZONTAL, length=200)
+    self.controlAzul.grid(column=0, row=3)
+    varAzul.trace("w", colocar_color)#llama el evento cambiar color
+
+    self.contColocarColor = tk.Frame(self.contPersonalizarColor)
+    self.contColocarColor.grid(column=0, row=4, pady=5)
+
+    self.insertarColor = tk.Entry(self.contColocarColor)
+    self.insertarColor.insert(0, "#")
+    self.insertarColor.grid(column=0, row=0)
+
+    self.botonesColocarColor = tk.Button(self.contColocarColor, text="Listo", command=hexa_color)
+    self.botonesColocarColor.config(font=self.fuenteTitulo, justify=CENTER, pady=1, padx=1, width=4, fg=colorTextBoton1, bg="#08d945")
+    self.botonesColocarColor.grid(column=1, row=0)
+
+
+
+
     self.contPaletasColores = tk.Frame(self.contPadre, bg=coloresFondoGris)
     self.contPaletasColores.pack(side=RIGHT, fill=Y, padx=10)
 
@@ -73,19 +128,21 @@ def crear_nombre_colores(self):
 
 def generar_componetes_muestra(self):
 
-
     if len(tarjetas) == 0 and len(lisNombres) == 0:
-        print(f"soy el numero de tarjetas {len(tarjetas)}")
         crear_tarjetas(self)
         crear_nombre_colores(self)
-        colocar_tarjetas()
+        posicionar_tarjetas_nombres()
     else:
-        print(f"soy el numero de tarjetas {len(tarjetas)}")
+        for comp in tarjetas:
+            comp.destroy()
+        for lb in lisNombres:
+            lb.destroy()
         tarjetas.clear()
         lisNombres.clear()
         crear_tarjetas(self)
         crear_nombre_colores(self)
-        colocar_tarjetas()
+        posicionar_tarjetas_nombres()
+
 
 
 
@@ -152,13 +209,14 @@ def colores_aleatorio():
     return colorInicio
 
 
-def colocar_tarjetas():
+def posicionar_tarjetas_nombres():
     posicionRowT = 0
     posicionRowL = 1
 
     posicionColumnT = 0
     posicionColumnL = 0
 
+    #=== posiciona en su lugar correcto a las tarjetas
     numeroElementos = 0
     for elmet in tarjetas:
         if numeroElementos == 5:
@@ -178,6 +236,7 @@ def colocar_tarjetas():
         else:
             break
 
+    # === posiciona en su lugar correcto a los nombres de los colores
     numeroNombres = 0
     for nombr in lisNombres:
         if numeroNombres == 5:
