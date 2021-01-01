@@ -10,7 +10,7 @@ class aplicacion():
         self.raiz.title("COLOR")
         self.raiz.resizable(width=False, height=False)
         self.raiz.config(bg="DIMGRAY")
-        self.raiz.iconphoto(False, tk.PhotoImage(file='img/icon.png'))
+#        self.raiz.iconphoto(False, tk.PhotoImage(file='img/icon.png'))
 
         #===== componetes graficos =====
         componetes.de_inicio(self, self.raiz)
