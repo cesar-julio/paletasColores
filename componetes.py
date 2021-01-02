@@ -6,6 +6,7 @@
 from tkinter import *
 from tkinter import ttk
 from random import randint
+from PIL import ImageColor
 
 import tkinter as tk
 import tkinter.font as tkFont
@@ -27,7 +28,7 @@ def de_inicio(self, ubucacion):
     # ===== variables ===
     self.fuenteTitulo = tkFont.Font(family="Helvetica", size=9)
     self.fuenteBotones = tkFont.Font(family="Console", size=10)
-    self.fuenteNombreColores = tkFont.Font(family="Console", size=7)
+    self.fuenteNombreColores = tkFont.Font(family="Console", size=8)
 
     self.contPadre = tk.Frame(ubucacion, bg=coloresFondoGris)
     self.contPadre.pack(side=TOP, pady=5, padx=5)
@@ -48,7 +49,7 @@ def de_inicio(self, ubucacion):
     #============ COLORES PERSONALIZADOS ==============
     self.personalizarColor = tk.Frame(self.contPadre)
     self.personalizarColor.config(bg=coloresFondoGris)
-    self.personalizarColor.pack(side=LEFT, fill=Y, padx= 10)
+    self.personalizarColor.pack(side=LEFT, fill=Y, padx=10)
 
     self.contPersonalizarColor = tk.Frame(self.personalizarColor)
     self.contPersonalizarColor.pack(side=TOP)
@@ -72,14 +73,20 @@ def de_inicio(self, ubucacion):
 
 
     def hexa_color():
+
         color = self.insertarColor.get()
+        coloRGB = ImageColor.getcolor(color, "RGB")
+
+        self.controlRojo.set(coloRGB[0])
+        self.controlVerde.set(coloRGB[1])
+        self.controlAzul.set(coloRGB[2])
         self.verColor.config(bg=color)
 
 
     varRojo = IntVar()
     self.controlRojo = tk.Scale(self.contPersonalizarColor, variable=varRojo, from_=0, to=255)
     self.controlRojo.config(troughcolor="RED", orient=HORIZONTAL, length=200)
-    self.controlRojo.grid(column=0, row=1)
+    self.controlRojo.grid(column=0, row=1, padx=10)
     varRojo.trace("w", colocar_color)
 
     varVerde = IntVar()
