@@ -1,37 +1,14 @@
-from tkinter import *
-from tkinter import ttk
+from PIL import ImageColor
 
-import tkinter as tk
+#color = input("codigo color: ").lstrip("#")
 
-
-class aplicacion():
-    def __init__(self):
-        self.raiz = Tk()
-        self.raiz.title("Pale color")
-        self.raiz.resizable(width=False, height=False)
-        self.raiz.config(bg="DIMGRAY")
-
-        # ===== componetes graficos =====
-        listMercado =["papa", "trigo", "maíz"]
-        def eliminar():
-           for l in listMercado:
-               print(f"casa {l}")
-        self.titulo = tk.Label(self.raiz, text="Hola loca")
-        self.titulo.pack(side=TOP, fill=X)
+pepe = []
 
 
+#print('RGB = ', tuple(int(color[i:i+2], 16) for i in (0, 2, 4)))
 
-        self.generarALeatoreo = tk.Button(self.raiz, text="Generar", bd=0, command=eliminar)
-        self.generarALeatoreo.config(pady=13, padx=29, bg="#08d945", fg="GREEN")
-        self.generarALeatoreo.pack(side=TOP)
-
-        self.raiz.mainloop()
+color01 = ImageColor.getcolor("#9161d3", "RGB")
+print(f"color RGB = {color01}")
 
 
-def main():
-    mi_app = aplicacion()
-    return 0
-
-
-if __name__ == '__main__':
-    main()
+print(color01[1])
